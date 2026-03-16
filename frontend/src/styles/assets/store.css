@@ -1,0 +1,570 @@
+/* src/app/store.css */
+
+/* Reset & Base - Apple style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: #1d1d1f;
+    background-color: #ffffff;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Navigation - Apple style */
+.apple-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.nav-container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.nav-logo {
+    color: #1d1d1f;
+    font-size: 20px;
+    opacity: 0.8;
+}
+
+.nav-links {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-links a {
+    color: #1d1d1f;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.nav-links a:hover {
+    opacity: 1;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 24px;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: #1d1d1f;
+    font-size: 16px;
+    opacity: 0.6;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.icon-btn:hover {
+    opacity: 1;
+}
+
+/* Banner - Apple style */
+.apple-banner {
+    background: #f5f5f7;
+    border-bottom: 1px solid #d2d2d7;
+    font-size: 14px;
+    padding: 12px 0;
+}
+
+.banner-content {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+    text-align: center;
+    color: #1d1d1f;
+}
+
+.banner-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 400;
+}
+
+.banner-link:hover {
+    text-decoration: underline;
+}
+
+/* Hero Section - Apple style */
+.apple-hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 22px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero-content {
+    animation: fadeUp 0.8s ease-out;
+}
+
+.hero-eyebrow {
+    font-size: 17px;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -0.022em;
+    color: #86868b;
+    margin-bottom: 12px;
+}
+
+.hero-title {
+    font-size: 56px;
+    line-height: 1.07143;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    color: #1d1d1f;
+    margin-bottom: 16px;
+}
+
+.hero-description {
+    font-size: 21px;
+    line-height: 1.381;
+    font-weight: 400;
+    letter-spacing: 0.011em;
+    color: #86868b;
+    margin-bottom: 32px;
+    max-width: 480px;
+}
+
+.hero-cta {
+    display: flex;
+    gap: 20px;
+}
+
+.cta-primary {
+    background: #0071e3;
+    color: white;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 980px;
+    font-size: 17px;
+    line-height: 1.17648;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cta-primary:hover {
+    background: #0077ed;
+}
+
+.cta-secondary {
+    background: none;
+    color: #0071e3;
+    border: 1px solid #0071e3;
+    padding: 12px 22px;
+    border-radius: 980px;
+    font-size: 17px;
+    line-height: 1.17648;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cta-secondary:hover {
+    background: rgba(0, 113, 227, 0.05);
+}
+
+.hero-visual {
+    position: relative;
+    height: 400px;
+}
+
+.hero-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f7, #e8e8ed);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Brand Grid - Apple style */
+.apple-brands {
+    background: #f5f5f7;
+    padding: 80px 0;
+}
+
+.section-header-compact {
+    max-width: 980px;
+    margin: 0 auto 48px;
+    padding: 0 22px;
+    text-align: center;
+}
+
+.section-header-compact h2 {
+    font-size: 48px;
+    line-height: 1.08349;
+    font-weight: 600;
+    letter-spacing: -0.003em;
+    color: #1d1d1f;
+    margin-bottom: 12px;
+}
+
+.section-header-compact p {
+    font-size: 24px;
+    line-height: 1.16667;
+    font-weight: 400;
+    letter-spacing: 0.009em;
+    color: #86868b;
+}
+
+.brand-grid-compact {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 768px) {
+    .brand-grid-compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.brand-tile {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 18px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid transparent;
+}
+
+.brand-tile:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.04);
+    border-color: rgba(0, 0, 0, 0.02);
+}
+
+.brand-tile-emoji {
+    font-size: 40px;
+    opacity: 0.7;
+}
+
+.brand-tile h3 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+.brand-tile-arrow {
+    color: #86868b;
+    font-size: 18px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s;
+}
+
+.brand-tile:hover .brand-tile-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Categories Grid - Apple style */
+.apple-categories {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 22px;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.category-card {
+    background: #f5f5f7;
+    border-radius: 24px;
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s;
+}
+
+.category-card.large {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+}
+
+.category-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 30px 40px rgba(0, 0, 0, 0.08);
+}
+
+.category-content {
+    padding: 30px;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.category-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 12px;
+    color: #1d1d1f;
+}
+
+.category-content h3 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d1d1f;
+}
+
+.category-content p {
+    font-size: 16px;
+    color: #86868b;
+    margin-bottom: 16px;
+}
+
+.category-link {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 17px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.category-link:hover {
+    text-decoration: underline;
+}
+
+.category-visual {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60%;
+    height: 60%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.8;
+}
+
+/* Product Grid - Apple style */
+.apple-products {
+    background: #ffffff;
+    padding: 80px 0;
+}
+
+.product-grid-compact {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 22px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.product-item {
+    transition: all 0.3s;
+}
+
+.product-item:hover {
+    transform: scale(1.02);
+}
+
+.product-image-wrapper {
+    background: #f5f5f7;
+    border-radius: 24px;
+    aspect-ratio: 1;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.product-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e8e8ed, #d8d8dd);
+}
+
+.product-details {
+    padding: 0 8px;
+}
+
+.product-brand-tag {
+    font-size: 13px;
+    color: #86868b;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.product-name {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 4px 0;
+    color: #1d1d1f;
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: 400;
+    color: #1d1d1f;
+}
+
+/* Footer - Apple style */
+.apple-footer {
+    background: #f5f5f7;
+    border-top: 1px solid #d2d2d7;
+    padding: 40px 0 20px;
+}
+
+.footer-content {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 22px;
+}
+
+.footer-breadcrumb {
+    font-size: 12px;
+    color: #86868b;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #d2d2d7;
+}
+
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-column h4 {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #1d1d1f;
+    letter-spacing: 0.02em;
+}
+
+.footer-column a {
+    display: block;
+    color: #515154;
+    text-decoration: none;
+    font-size: 12px;
+    margin-bottom: 10px;
+    transition: color 0.2s;
+}
+
+.footer-column a:hover {
+    color: #1d1d1f;
+    text-decoration: underline;
+}
+
+.footer-legal {
+    border-top: 1px solid #d2d2d7;
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: #86868b;
+}
+
+.legal-links {
+    display: flex;
+    gap: 20px;
+}
+
+.legal-links a {
+    color: #515154;
+    text-decoration: none;
+}
+
+.legal-links a:hover {
+    color: #1d1d1f;
+    text-decoration: underline;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .apple-hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 40px 22px;
+    }
+
+    .hero-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-cta {
+        justify-content: center;
+    }
+
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .category-card.large {
+        grid-column: auto;
+    }
+
+    .product-grid-compact {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .footer-legal {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+    }
+}

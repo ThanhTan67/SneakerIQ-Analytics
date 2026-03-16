@@ -1,0 +1,113 @@
+
+header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.8); /* nền trắng trong suốt */
+    backdrop-filter: saturate(180%) blur(18px); /* hiệu ứng mờ */
+    border-bottom: 1px solid #e5e7eb;
+}
+
+/* nav layout */
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+}
+
+/* logo */
+nav .logo {
+
+}
+
+/* menu */
+nav ul {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    display: flex;
+    gap: 36px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav a {
+    color: #2b2b2b;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #007aff;
+}
+
+/* actions (search + cart) */
+nav .actions {
+    display: flex;
+    gap: 16px;
+}
+
+nav button {
+    font-size: 18px;
+    background: none;
+    border: none;
+    color: #000;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+nav button:hover {
+    color: #007aff;
+}
+
+.user-menu { position: relative; }
+
+.user-btn { background: none; border: none; cursor: pointer; font-size: 18px; }
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    min-width: 120px;
+    padding: 6px 0;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(18px);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 400ms cubic-bezier(.2,.9,.2,1), opacity 400ms ease;
+    z-index: 100;
+}
+
+.dropdown.open {
+    transform: scaleY(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.dropdown-item {
+    font-size: 12px;
+    font-weight: 400;
+    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+    display: block;
+    padding: 10px 16px;
+    color: #232323;
+    text-decoration: none;
+    transition: background .12s;
+}
+
+.dropdown-item:hover { background: #f5f5f7; }
+
+
