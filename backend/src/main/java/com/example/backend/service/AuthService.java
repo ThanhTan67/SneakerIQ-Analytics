@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(AuthService.class);
     private static final Pattern EMAIL_PATTERN = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
     private static final int MAX_FAILED_ATTEMPTS = 5;
@@ -138,8 +137,22 @@ public class AuthService {
         String refreshToken = jwtTokenProvider.generateRefreshToken(user.getEmail(), user.getId(), user.getTokenVersion());
 
         log.info("Login successful: {}", user.getEmail());
-        return new AuthResponse(accessToken, refreshToken);
+        return new AuthResponse(accessToken, refreshToken, user.getFullName());
     }
+
+    public void logout(String username) {
+        User user = userRepository.findByFullName(username).orElse(null);
+
+        if (user == null) {
+            log.warn("User not found: {}", username);
+            throw new BusinessException("User not found", "USER_NOT_FOUND");
+        }
+        user.setTokenVersion(user.getTokenVersion() + 1);
+        userRepository.save(user);
+
+        log.info("Logout successful: {}", user.getFullName());
+    }
+
 
     private void handleFailedAttempt(User user) {
         user.setFailed(user.getFailed() + 1);
@@ -179,8 +192,6 @@ public class AuthService {
         return str == null || str.trim().isBlank();
     }
 
-    // ==================== EMAIL-RELATED METHODS ====================
-
     @Transactional
     public void requestPasswordReset(ForgotPasswordRequest request) {
         String email = request.getEmail().trim().toLowerCase();
@@ -204,7 +215,6 @@ public class AuthService {
 
         tokenRepository.save(token);
 
-        // Send email asynchronously - don't throw if fails
         sendOtpEmailAsync(user, otp);
     }
 
@@ -265,7 +275,6 @@ public class AuthService {
         tokenRepository.save(token);
         tokenRepository.invalidateAllUserTokens(email);
 
-        // Send confirmation email asynchronously - don't throw if fails
         sendConfirmationEmailAsync(user);
     }
 

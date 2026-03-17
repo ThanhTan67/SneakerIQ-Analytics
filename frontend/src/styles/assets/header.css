@@ -1,113 +1,228 @@
-
-header {
+/* Header chính - style Apple */
+.header {
     position: sticky;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 50;
-    background-color: rgba(255, 255, 255, 0.8); /* nền trắng trong suốt */
-    backdrop-filter: saturate(180%) blur(18px); /* hiệu ứng mờ */
-    border-bottom: 1px solid #e5e7eb;
+    background-color: rgba(255, 255, 255, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
-/* nav layout */
-nav {
+/* Nav layout */
+.nav {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 12px 24px;
+    padding: 0 24px;
+    height: 52px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 14px;
-}
-
-/* logo */
-nav .logo {
-
-}
-
-/* menu */
-nav ul {
     font-size: 12px;
-    font-weight: 400;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: #1d1d1f;
+}
+
+/* Menu chính */
+.menu {
     display: flex;
-    gap: 36px;
+    gap: 28px;
     list-style: none;
     margin: 0;
     padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: -0.01em;
 }
 
-nav a {
-    color: #2b2b2b;
+.menu a {
+    color: #1d1d1f;
     text-decoration: none;
-    white-space: nowrap;
-    transition: color 0.2s ease;
+    opacity: 0.88;
+    transition: opacity 0.2s ease;
 }
 
-nav a:hover {
-    color: #007aff;
+.menu a:hover {
+    opacity: 1;
+    color: #1d1d1f;
 }
 
-/* actions (search + cart) */
-nav .actions {
+/* Actions container */
+.actions {
     display: flex;
-    gap: 16px;
+    align-items: center;
+    gap: 20px;
 }
 
-nav button {
-    font-size: 18px;
+/* Icon buttons style Apple */
+.action-btn {
     background: none;
     border: none;
-    color: #000;
+    padding: 0;
+    font-size: 16px;
+    color: #1d1d1f;
     cursor: pointer;
-    transition: color 0.2s ease;
+    opacity: 0.88;
+    transition: opacity 0.2s ease;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
 }
 
-nav button:hover {
-    color: #007aff;
+.action-btn:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.03);
 }
 
-.user-menu { position: relative; }
+/* User menu - container */
+.user-menu {
+    position: relative;
+}
 
-.user-btn { background: none; border: none; cursor: pointer; font-size: 18px; }
+/* User button style Apple */
+.user-btn {
+    background: none;
+    border: none;
+    padding: 0 8px;
+    height: 28px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #1d1d1f;
+    cursor: pointer;
+    opacity: 0.88;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 6px;
+}
 
+.user-btn:hover {
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Icon mũi tên xuống */
+.user-btn::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231d1d1f'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-size: contain;
+    opacity: 0.5;
+    transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* Xoay mũi tên khi mở dropdown */
+.user-btn[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
+/* Dropdown chính - HIỆU ỨNG TỪ TRÊN XUỐNG */
 .dropdown {
     position: absolute;
     right: 0;
     top: calc(100% + 8px);
-    min-width: 120px;
-    padding: 6px 0;
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(18px);
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-    transform-origin: top;
-    transform: scaleY(0);
+    min-width: 140px;
+    padding: 8px 0;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.15);
+
+    /* Animation từ trên xuống */
+    transform: translateY(-10px);
     opacity: 0;
     pointer-events: none;
-    transition: transform 400ms cubic-bezier(.2,.9,.2,1), opacity 400ms ease;
+    transition:
+            transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1),
+            opacity 0.2s ease;
     z-index: 100;
 }
 
+/* Khi mở dropdown */
 .dropdown.open {
-    transform: scaleY(1);
+    transform: translateY(0);
     opacity: 1;
     pointer-events: auto;
 }
 
+/* Dropdown items */
 .dropdown-item {
-    font-size: 12px;
-    font-weight: 400;
-    font-family: SF Pro Text, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
     display: block;
-    padding: 10px 16px;
-    color: #232323;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 400;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    color: #1d1d1f;
     text-decoration: none;
-    transition: background .12s;
+    transition: background-color 0.1s ease;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
-.dropdown-item:hover { background: #f5f5f7; }
+.dropdown-item:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+}
 
+/* Divider cho dropdown */
+.dropdown-divider {
+    height: 1px;
+    background-color: rgba(0, 0, 0, 0.06);
+    margin: 6px 0;
+}
 
+/* Thêm vào file CSS của header */
+.auth-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.sign-link,
+.signup-link {
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.sign-link:hover,
+.signup-link:hover {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.separator {
+    color: #999;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav {
+        padding: 0 16px;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .actions {
+        gap: 12px;
+    }
+}

@@ -29,7 +29,7 @@ export default function LoginPage() {
             // Redirect to store after successful login
             setTimeout(() => {
                 router.push("/");
-            }, 1500);
+            }, 50);
 
         } catch {
             // Error handled by useAuth
@@ -96,18 +96,6 @@ export default function LoginPage() {
                     </Link>
                 </div>
 
-                {error && (
-                    <div className="error-message">
-                        <strong>Error:</strong> {error}
-                    </div>
-                )}
-
-                {success && (
-                    <div className="success-message">
-                        {success}
-                    </div>
-                )}
-
                 <button
                     type="submit"
                     className="submit-btn"
@@ -116,6 +104,16 @@ export default function LoginPage() {
                     {isLoading ? "Signing in..." : "Continue"}
                 </button>
             </form>
+
+            {/*{success && (*/}
+            {/*    <div className="success-message">*/}
+            {/*        {success}*/}
+            {/*    </div>*/}
+            {/*)}*/}
+
+            {error && (
+                <div className="error-message">{error}</div>
+            )}
 
             <div className="auth-footer">
                 <p>

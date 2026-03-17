@@ -108,7 +108,7 @@
 
 .error-message {
     margin-top: 16px;
-    color: #d70015;
+    color: #ee3200;
     font-size: 14px;
     text-align: center;
 }
@@ -143,7 +143,7 @@
     align-items: center;
     justify-content: center;
     gap: 8px;
-    padding: 6px;
+    padding: 8px;
     border-radius: 28px;
     font-size: 14px;
     font-weight: 500;
@@ -184,9 +184,12 @@
     }
 }
 
-/* register.css - Kế thừa style từ auth.css và bổ sung riêng cho register */
+.auth-footer{
+    margin-top: 2px;
 
-/* Kế thừa container từ login */
+}
+
+
 .register-container {
     max-width: 400px;
     margin: 40px auto;
@@ -195,7 +198,6 @@
     position: relative;
 }
 
-/* Điều chỉnh title cho register */
 .register-title {
     font-size: 24px;
     font-weight: 600;
@@ -217,7 +219,6 @@
     margin-right: auto;
 }
 
-/* Form styles - kế thừa từ login */
 .register-form {
     display: flex;
     flex-direction: column;
@@ -289,19 +290,19 @@
 .terms-error {
     width: 100%;
     font-size: 12px;
-    color: #d70015;
+    color: #ee3200;
     margin-top: 4px;
 }
 
 /* Error states */
 .error-input {
-    border-color: #d70015 !important;
+    border-color: #ee3200 !important;
     background-color: #fff2f4;
 }
 
 .field-error {
     font-size: 12px;
-    color: #d70015;
+    color: #ee3200;
     margin-top: 4px;
     animation: slideIn 0.2s ease;
 }
@@ -334,7 +335,7 @@
 }
 
 .register-select.error-input {
-    border-color: #d70015;
+    border-color: #ee3200;
 }
 
 .register-select option[value=""] {
@@ -344,7 +345,7 @@
 /* Success và error messages */
 .register-error {
     margin-top: 20px;
-    color: #d70015;
+    color: #ee3200;
     font-size: 14px;
     text-align: center;
 }
@@ -503,7 +504,7 @@
 }
 
 .otp-input.error-input {
-    border-color: #d70015 !important;
+    border-color: #ee3200 !important;
     background-color: #fff2f4;
 }
 
@@ -659,7 +660,7 @@
 }
 
 .form-group input.error-input {
-    border-color: #d70015 !important;
+    border-color: #ee3200 !important;
     background-color: #fff2f4;
 }
 
@@ -672,7 +673,7 @@
 /* Field error - giống register */
 .field-error {
     font-size: 12px;
-    color: #d70015;
+    color: #ee3200;
     margin-top: 4px;
     animation: slideIn 0.2s ease;
 }
@@ -714,7 +715,7 @@
 /* Messages - giống register */
 .message-error {
     margin-top: 20px;
-    color: #d70015;
+    color: #ee3200;
     font-size: 14px;
     text-align: center;
 }
@@ -764,7 +765,7 @@
 
 /* Required star - giống register */
 .required-star {
-    color: #d70015;
+    color: #ee3200;
     margin-left: 2px;
 }
 

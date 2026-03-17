@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { authService } from './authService';
 import {
     RegisterFormData,
@@ -14,6 +14,31 @@ export const useAuth = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [user, setUser] = useState<{ fullName: string } | null>(null);
+
+    // Load user từ localStorage khi component mount
+    useEffect(() => {
+        const currentUser = authService.getCurrentUser();
+        if (currentUser) {
+            setUser(currentUser);
+        }
+    }, []);
+
+    // Lắng nghe sự thay đổi từ tab khác
+    useEffect(() => {
+        const handleStorageChange = (e: StorageEvent) => {
+            if (e.key === 'user') {
+                const currentUser = authService.getCurrentUser();
+                setUser(currentUser);
+            }
+        };
+
+        window.addEventListener('storage', handleStorageChange);
+
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
 
     // Login
     const login = useCallback(async (identifier: string, password: string) => {
@@ -22,10 +47,34 @@ export const useAuth = () => {
 
         try {
             const response = await authService.login(identifier, password);
+
+            if (response.data?.fullName) {
+                // Set user state ngay lập tức
+                setUser({ fullName: response.data.fullName });
+            }
+
             setSuccess(response.message || 'Login successful');
             return response;
         } catch (err) {
             const message = err instanceof Error ? err.message : 'Login failed';
+            setError(message);
+            throw err;
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    // Logout
+    const logout = useCallback(async () => {
+        setIsLoading(true);
+        setError('');
+
+        try {
+            await authService.logout();
+            setUser(null);
+            setSuccess('Logout successful');
+        } catch (err) {
+            const message = err instanceof Error ? err.message : 'Logout failed';
             setError(message);
             throw err;
         } finally {
@@ -186,7 +235,6 @@ export const useAuth = () => {
         }
     }, []);
 
-    // ✅ CHỈ SỬA HÀM NÀY - resetPassword nhận 4 tham số
     const resetPassword = useCallback(async (
         email: string,
         otp: string,
@@ -236,9 +284,12 @@ export const useAuth = () => {
         isLoading,
         error,
         success,
+        user,
+        isAuthenticated: !!user,
 
-        // Login
+        // Login/Logout
         login,
+        logout,
 
         // Register
         validateRegisterField,
@@ -250,7 +301,7 @@ export const useAuth = () => {
         validateForgotPasswordForm,
         forgotPassword,
         verifyOTP,
-        resetPassword,    // ✅ Đã sửa
+        resetPassword,
         resendOTP,
 
         // Utilities
