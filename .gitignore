@@ -1,0 +1,33 @@
+# Java / Spring Boot
+target/
+*.war
+*.jar
+*.class
+
+# Node.js / Frontend
+frontend/node_modules/
+node_modules/
+.cache/
+dist/
+build/
+
+# IDE / Editor
+.idea/
+*.iml
+.vscode/
+*.swp
+
+.env
+backend/.env
+backend/.env.example
+frontend/.env
+frontend/.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+venv/
+*.pyc
+__pycache__/

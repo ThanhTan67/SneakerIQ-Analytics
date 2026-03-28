@@ -18,20 +18,20 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<ApiResponse> signup(@Valid @RequestBody SignupRequest request) {
+    public ResponseEntity<?> signup(@Valid @RequestBody SignupRequest request) {
         authService.signup(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ApiResponse("Register successfully", true));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@Valid @RequestBody LoginRequest request) {
         AuthResponse response = authService.login(request);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<ApiResponse> logout() {
+    public ResponseEntity<?> logout() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth == null || !auth.isAuthenticated()) {
@@ -47,7 +47,7 @@ public class AuthController {
     }
 
     @PostMapping("/forgot")
-    public ResponseEntity<ForgotPasswordResponse> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<?> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
         authService.requestPasswordReset(request);
         return ResponseEntity.ok(new ForgotPasswordResponse(
                 "Verification code sent to your email",
@@ -57,7 +57,7 @@ public class AuthController {
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<OTPVerificationResponse> verifyOTP(@Valid @RequestBody VerifyOTPRequest request) {
+    public ResponseEntity<?> verifyOTP(@Valid @RequestBody VerifyOTPRequest request) {
         authService.verifyOTP(request);
         return ResponseEntity.ok(new OTPVerificationResponse(
                 "OTP verified successfully",
@@ -68,7 +68,7 @@ public class AuthController {
     }
 
     @PostMapping("/reset")
-    public ResponseEntity<ForgotPasswordResponse> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<?> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
         authService.resetPassword(request);
         return ResponseEntity.ok(new ForgotPasswordResponse(
                 "Password reset successfully. Please login with your new password.",
@@ -78,7 +78,7 @@ public class AuthController {
     }
 
     @PostMapping("/resend-otp")
-    public ResponseEntity<ForgotPasswordResponse> resendOTP(@Valid @RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<?> resendOTP(@Valid @RequestBody ForgotPasswordRequest request) {
         authService.resendOTP(request);
         return ResponseEntity.ok(new ForgotPasswordResponse(
                 "New verification code sent to your email",

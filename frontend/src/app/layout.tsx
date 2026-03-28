@@ -1,14 +1,13 @@
 // src/app/layout.tsx
 import type { Metadata } from "next";
 import "./globals.css";
-import "@/styles/assets/globals.css";
-import "@/styles/assets/header.css";
-import Header from "@/components/layout/header";
-import Footer from "@/components/layout/footer";
+import "@/styles/assets/sneaker.css";
+import SneakerHeader from "@/components/sneaker/SneakerHeader";
+import SneakerFooter from "@/components/sneaker/SneakerFooter";
 
 export const metadata: Metadata = {
-    title: "Glow Mart",
-    description: "Cửa hàng chính hãng",
+    title: "SneakerIQ - Phân Tích Giá Sneaker Thông Minh",
+    description: "Nền tảng phân tích giá sneaker từ Nike, Adidas, Jordan, New Balance, Puma, Converse, Vans. Theo dõi giá, so sánh và nhận gợi ý mua hàng tối ưu.",
 };
 
 export default function RootLayout({
@@ -17,11 +16,11 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-        <html lang="en">
-            <body className="main">
-                <Header />
-                {children}
-                <Footer />
+        <html lang="vi">
+            <body>
+                <SneakerHeader />
+                <main>{children}</main>
+                <SneakerFooter />
             </body>
         </html>
     );

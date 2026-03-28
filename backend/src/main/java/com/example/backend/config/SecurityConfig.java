@@ -16,6 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import java.util.List;
 
 @Configuration
@@ -41,7 +42,7 @@ public class SecurityConfig {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(
                     "{\"status\":401,\"message\":\"Unauthorized: Invalid or missing JWT token\",\"error\":\"" +
-                    authException.getMessage() + "\"}"
+                            authException.getMessage() + "\"}"
             );
         };
     }
@@ -53,7 +54,11 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authz -> authz
-                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**","/api/v1/account").permitAll()
+                        .requestMatchers("/api/v1/products/**").permitAll()
+                        .requestMatchers("/api/v1/brands/**").permitAll()
+                        .requestMatchers("/api/v1/insights/**").permitAll()
+                        .requestMatchers("/api/crawl/**").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )

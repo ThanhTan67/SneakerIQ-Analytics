@@ -141,7 +141,12 @@ public class AuthService {
     }
 
     public void logout(String username) {
-        User user = userRepository.findByFullName(username).orElse(null);
+        if(username == null || username.isBlank()) {
+            log.warn("Logout failed - username is null or empty");
+            throw new BusinessException("Username is null or empty", "USER_NOT_FOUND");
+        }
+
+        User user = userRepository.findUserByFullName(username).orElse(null);
 
         if (user == null) {
             log.warn("User not found: {}", username);

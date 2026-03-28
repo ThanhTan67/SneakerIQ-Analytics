@@ -1,203 +1,165 @@
-// src/app/page.tsx
+// src/app/page.tsx - SneakerIQ Homepage — Apple-inspired design
 import Link from 'next/link';
-import "@/styles/assets/store.css";
+import ProductCard from '@/components/sneaker/ProductCard';
+import { Product, Brand } from '@/features/sneaker/types';
 
-export default function Home() {
-    const shoeBrands = [
-        { name: 'Nike', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'Adidas', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'Puma', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'New Balance', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'Converse', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'Vans', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-        { name: 'Jordan', bgColor: '#f5f5f7', textColor: '#1d1d1f', accent: '#e6e6e8' },
-    ];
+// Lấy các biến từ env (thêm vào nhưng không thay đổi logic code gốc)
+const BRANDS: { name: string; slug: string; logo: string }[] = [
+    { name: 'Nike', slug: 'nike', logo: '/images/nike.svg' },
+    { name: 'Adidas', slug: 'adidas', logo: '/images/adidas.svg' },
+    { name: 'Jordan', slug: 'jordan', logo: '/images/jordan.svg' },
+    { name: 'New Balance', slug: 'new-balance', logo: '/images/new-balance.svg' },
+    { name: 'Puma', slug: 'puma', logo: '/images/puma.svg' },
+    { name: 'Converse', slug: 'converse', logo: '/images/converse.svg' },
+    // { name: 'Vans', slug: 'vans', logo: '/images/vans.svg' },
+];
+
+async function fetchData() {
+    // Sử dụng env cho API URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    // Sử dụng env cho các limit
+    const defaultLimit = process.env.NEXT_PUBLIC_DEFAULT_LIMIT || '8';
+    const bestDealsLimit = process.env.NEXT_PUBLIC_BEST_DEALS_LIMIT || '12';
+
+    try {
+        const [trendingRes, topDiscRes, bestDealsRes, brandsRes] = await Promise.all([
+            fetch(`${baseUrl}/api/v1/products/trending?limit=${defaultLimit}`, { cache: 'no-store' }),
+            fetch(`${baseUrl}/api/v1/products/top-discounted?limit=${defaultLimit}`, { cache: 'no-store' }),
+            fetch(`${baseUrl}/api/v1/products/best-deals?limit=${bestDealsLimit}`, { cache: 'no-store' }),
+            fetch(`${baseUrl}/api/v1/brands`, { cache: 'no-store' }).catch(() => null),
+        ]);
+
+        const trending = trendingRes.ok ? await trendingRes.json() : [];
+        const topDisc = topDiscRes.ok ? await topDiscRes.json() : [];
+        const bestDealsRaw = bestDealsRes.ok ? await bestDealsRes.json() : [];
+        const brands: Brand[] = brandsRes && brandsRes.ok ? await brandsRes.json() : [];
+        const totalProducts = brands.reduce((sum, b) => sum + (b.productCount || 0), 0);
+
+        // Filter: only show products with images and real prices
+        const filterValid = (items: Product[]) => items.filter(
+            (p: Product) => p.mainImage && p.currentPrice && p.currentPrice > 0
+        );
+
+        return {
+            trending: filterValid(trending).slice(0, Number(defaultLimit)),
+            topDiscounted: filterValid(topDisc).slice(0, Number(defaultLimit)),
+            bestDeals: filterValid(bestDealsRaw).slice(0, Number(defaultLimit)),
+            totalProducts,
+        };
+    } catch {
+        return { trending: [], topDiscounted: [], bestDeals: [], totalProducts: 0 };
+    }
+}
+
+export default async function HomePage() {
+    const { trending, topDiscounted, bestDeals, totalProducts } = await fetchData();
+
+    // Sử dụng env cho thông tin website (giữ nguyên hiển thị)
+    const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'Sneaker';
+    const siteDescription = process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Phân tích giá sneaker. Thông minh hơn.';
 
     return (
         <>
-            <div className="apple-banner">
-                <div className="banner-content">
-                    <p>
-                        Thanh toán hàng tháng thật dễ dàng với lãi suất 0% trong 12 tháng.
-                        <Link href="#" className="banner-link"> Tìm hiểu thêm <span>→</span></Link>
-                    </p>
-                </div>
-            </div>
-
-            {/* Hero Section - Apple style */}
-            <section className="apple-hero">
+            {/* Hero */}
+            <section className="hero-section">
                 <div className="hero-content">
-                    <h2 className="hero-eyebrow">Bộ sưu tập mới</h2>
+                    <div className="hero-badge">{siteName} Price Intelligence</div>
                     <h1 className="hero-title">
-                        Trao những điều
-                        <br />đặc biệt.
+                        {siteDescription}<br />
+                        <span className="gradient-text">Thông minh hơn.</span>
                     </h1>
-                    <p className="hero-description">
-                        Khám phá những mẫu giày thể thao mới nhất từ các thương hiệu hàng đầu thế giới.
-                        Thiết kế đương đại, chất lượng vượt thời gian.
+                    <p className="hero-subtitle">
+                        Theo dõi giá, so sánh nguồn mua và nhận gợi ý mua hàng tối ưu
+                        từ 7 thương hiệu hàng đầu thế giới.
                     </p>
-                    <div className="hero-cta">
-                        <button className="cta-primary">Mua sắm ngay</button>
-                        <button className="cta-secondary">Tìm hiểu thêm</button>
+                    <div className="hero-stats">
+                        <div className="hero-stat">
+                            <div className="hero-stat-value">7</div>
+                            <div className="hero-stat-label">Thương hiệu</div>
+                        </div>
+                        <div className="hero-stat">
+                            <div className="hero-stat-value">{totalProducts || '50+'}</div>
+                            <div className="hero-stat-label">Sản phẩm</div>
+                        </div>
+                        <div className="hero-stat">
+                            <div className="hero-stat-value">90</div>
+                            <div className="hero-stat-label">Ngày lịch sử giá</div>
+                        </div>
+                        <div className="hero-stat">
+                            <div className="hero-stat-value">24/7</div>
+                            <div className="hero-stat-label">Cập nhật</div>
+                        </div>
                     </div>
-                </div>
-                <div className="hero-visual">
-                    <div className="hero-image"></div>
                 </div>
             </section>
 
-            {/* Brand Grid - Apple style */}
-            <section className="apple-brands">
-                <div className="section-header-compact">
-                    <h2>Thương hiệu nổi bật.</h2>
-                    <p>Khám phá bộ sưu tập từ những thương hiệu giày hàng đầu.</p>
+            {/* Brands */}
+            <section className="section">
+                <div className="section-header">
+                    <h2 className="section-title">Thương hiệu</h2>
+                    <Link href="/brands" className="section-link">Xem tất cả →</Link>
                 </div>
-
-                <div className="brand-grid-compact">
-                    {shoeBrands.map((brand) => (
-                        <Link
-                            key={brand.name}
-                            href={`/brand/${brand.name.toLowerCase().replace(' ', '-')}`}
-                            className="brand-tile"
-                            style={{ backgroundColor: brand.bgColor }}
-                        >
-                            <span className="brand-tile-emoji">👟</span>
-                            <h3 style={{ color: brand.textColor }}>{brand.name}</h3>
-                            <span className="brand-tile-arrow">→</span>
+                <div className="brand-grid">
+                    {BRANDS.map((brand) => (
+                        <Link key={brand.slug} href={`/brands/${brand.slug}`} className="brand-card">
+                            <div className="brand-card-icon">
+                                <img src={brand.logo} alt={brand.name} width={64} height={64} />
+                            </div>
+                            <div className="brand-card-name">{brand.name}</div>
+                            <div className="brand-card-count">Xem sản phẩm →</div>
                         </Link>
                     ))}
                 </div>
             </section>
 
-            {/* Featured Categories - Apple style */}
-            <section className="apple-categories">
-                <div className="categories-grid">
-                    <div className="category-card large">
-                        <div className="category-content">
-                            <span className="category-tag">Giới hạn</span>
-                            <h3>Bộ sưu tập Air Max</h3>
-                            <p>Thoải mái tối đa cho mọi bước chạy</p>
-                            <Link href="/nike/air-max" className="category-link">Xem bộ sưu tập →</Link>
+            {/* Trending */}
+            {trending.length > 0 && (
+                <section className="section" style={{ background: 'var(--bg-secondary)' }}>
+                    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                        <div className="section-header">
+                            <h2 className="section-title">Trending</h2>
+                            <Link href="/products?sortBy=viewCount&sortDir=desc" className="section-link">Xem thêm →</Link>
                         </div>
-                        <div className="category-visual air-max-bg"></div>
-                    </div>
-
-                    <div className="category-card">
-                        <div className="category-content">
-                            <h3>Ultraboost mới</h3>
-                            <p>Năng lượng cho mọi bước chạy</p>
-                            <Link href="/adidas/ultraboost" className="category-link">Xem ngay →</Link>
-                        </div>
-                        <div className="category-visual ultraboost-bg"></div>
-                    </div>
-
-                    <div className="category-card">
-                        <div className="category-content">
-                            <h3>Classic Suede</h3>
-                            <p>Phong cách vượt thời gian</p>
-                            <Link href="/puma/suede" className="category-link">Xem ngay →</Link>
-                        </div>
-                        <div className="category-visual puma-bg"></div>
-                    </div>
-
-                    <div className="category-card">
-                        <div className="category-content">
-                            <h3>990 Series</h3>
-                            <p>Đẳng cấp Made in USA</p>
-                            <Link href="/new-balance/990" className="category-link">Xem ngay →</Link>
-                        </div>
-                        <div className="category-visual nb-bg"></div>
-                    </div>
-
-                    <div className="category-card">
-                        <div className="category-content">
-                            <h3>Chuck 70</h3>
-                            <p>Huyền thoại trở lại</p>
-                            <Link href="/converse/chuck-70" className="category-link">Xem ngay →</Link>
-                        </div>
-                        <div className="category-visual converse-bg"></div>
-                    </div>
-
-                    <div className="category-card">
-                        <div className="category-content">
-                            <h3>Old Skool</h3>
-                            <p>Biểu tượng đường phố</p>
-                            <Link href="/vans/old-skool" className="category-link">Xem ngay →</Link>
-                        </div>
-                        <div className="category-visual vans-bg"></div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Product Grid - Apple style */}
-            <section className="apple-products">
-                <div className="section-header-compact">
-                    <h2>Sản phẩm mới nhất.</h2>
-                    <p>Khám phá những thiết kế mới nhất vừa ra mắt.</p>
-                </div>
-
-                <div className="product-grid-compact">
-                    {[1, 2, 3, 4, 5, 6].map((item) => (
-                        <div key={item} className="product-item">
-                            <div className="product-image-wrapper">
-                                <div className="product-image-placeholder"></div>
-                            </div>
-                            <div className="product-details">
-                                <span className="product-brand-tag">Nike</span>
-                                <h4 className="product-name">Air Max Pulse</h4>
-                                <p className="product-price">3.299.000đ</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            {/* Footer - Apple style */}
-            <footer className="apple-footer">
-                <div className="footer-content">
-                    <div className="footer-breadcrumb">
-                        <span>🛒</span> › <span>Giày thể thao</span> › <span>Bộ sưu tập mới</span>
-                    </div>
-
-                    <div className="footer-links">
-                        <div className="footer-column">
-                            <h4>Khám phá</h4>
-                            <Link href="/nike">Nike</Link>
-                            <Link href="/adidas">Adidas</Link>
-                            <Link href="/puma">Puma</Link>
-                            <Link href="/new-balance">New Balance</Link>
-                        </div>
-                        <div className="footer-column">
-                            <h4>Dịch vụ</h4>
-                            <Link href="/help">Trợ giúp</Link>
-                            <Link href="/returns">Đổi trả</Link>
-                            <Link href="/shipping">Vận chuyển</Link>
-                            <Link href="/payment">Thanh toán</Link>
-                        </div>
-                        <div className="footer-column">
-                            <h4>Về chúng tôi</h4>
-                            <Link href="/about">Giới thiệu</Link>
-                            <Link href="/contact">Liên hệ</Link>
-                            <Link href="/careers">Tuyển dụng</Link>
-                        </div>
-                        <div className="footer-column">
-                            <h4>Kết nối</h4>
-                            <Link href="#">Facebook</Link>
-                            <Link href="#">Instagram</Link>
-                            <Link href="#">Twitter</Link>
+                        <div className="product-grid">
+                            {trending.map((product: Product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))}
                         </div>
                     </div>
+                </section>
+            )}
 
-                    <div className="footer-legal">
-                        <p>© 2026 ShoeStore. All rights reserved.</p>
-                        <div className="legal-links">
-                            <Link href="/privacy">Chính sách riêng tư</Link>
-                            <Link href="/terms">Điều khoản sử dụng</Link>
-                            <Link href="/sitemap">Sitemap</Link>
+            {/* Best Deals */}
+            {bestDeals.length > 0 && (
+                <section className="section">
+                    <div className="section-header">
+                        <h2 className="section-title">Best Deals</h2>
+                        <Link href="/insights" className="section-link">Xem tất cả →</Link>
+                    </div>
+                    <div className="product-grid">
+                        {bestDeals.map((product: Product) => (
+                            <ProductCard key={product.id} product={product} />
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {/* Top Discounted */}
+            {topDiscounted.length > 0 && (
+                <section className="section" style={{ background: 'var(--bg-secondary)' }}>
+                    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+                        <div className="section-header">
+                            <h2 className="section-title">Giảm giá tốt nhất</h2>
+                            <Link href="/products?sortBy=discountPercent&sortDir=desc" className="section-link">Xem thêm →</Link>
+                        </div>
+                        <div className="product-grid">
+                            {topDiscounted.map((product: Product) => (
+                                <ProductCard key={product.id} product={product} />
+                            ))}
                         </div>
                     </div>
-                </div>
-            </footer>
+                </section>
+            )}
         </>
     );
 }
