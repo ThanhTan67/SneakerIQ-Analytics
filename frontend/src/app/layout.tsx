@@ -6,7 +6,7 @@ import SneakerHeader from "@/components/sneaker/SneakerHeader";
 import SneakerFooter from "@/components/sneaker/SneakerFooter";
 
 export const metadata: Metadata = {
-    title: "SneakerIQ - Phân Tích Giá Sneaker Thông Minh",
+    title: "SneakerIQ - Analytic",
     description: "Nền tảng phân tích giá sneaker từ Nike, Adidas, Jordan, New Balance, Puma, Converse, Vans. Theo dõi giá, so sánh và nhận gợi ý mua hàng tối ưu.",
 };
 
