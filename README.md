@@ -1,4 +1,4 @@
-# GlowMart Sneaker Price Intelligence Platform
+# Sneaker Price Intelligence Platform
 
 ![Java](https://img.shields.io/badge/Java-Backend-orange)
 ![Spring Boot](https://img.shields.io/badge/SpringBoot-Framework-green)
@@ -10,7 +10,7 @@
 
 ## Overview
 
-The **GlowMart Platform** is a full-stack sneaker price intelligence and tracking platform designed to provide a comprehensive analytical shopping experience for sneaker enthusiasts.  
+The **Sneaker Analytic Platform** is a full-stack sneaker price intelligence and tracking platform designed to provide a comprehensive analytical shopping experience for sneaker enthusiasts.  
 The system supports a variety of advanced features including **dynamic size-specific pricing, price history charts, deal scoring algorithms, trend detection, secure user authentication, real-time market data crawling, and automated data seeding**.
 
 The platform is built focusing on a **scalable web architecture using modern backend and frontend technologies**, paired with an elegant, **Apple-inspired UI**. The system follows a **RESTful API architecture with a separated Next.js frontend and Spring Boot backend**, enabling flexible development, high performance, and smooth user experience.
@@ -29,7 +29,7 @@ The application emphasizes:
 
 | Category | Details |
 |--------|--------|
-| Project Name | GlowMart Sneaker Price Intelligence Platform |
+| Project Name | Sneaker Price Intelligence Platform |
 | Duration | Jan 2026 – Mar 2026 |
 | Team Size | 1 Member |
 | Role | Project Lead, Full-Stack Developer, Database Designer |
