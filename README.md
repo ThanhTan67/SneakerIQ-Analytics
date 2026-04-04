@@ -275,7 +275,7 @@ GlowMart
 ## Clone Repository
 
 ```bash
-git clone https://github.com/ThanhTan67/GlowMart.git
+git clone https://github.com/ThanhTan67/SneakerIQ-Analytics.git
 ```
 
 ---
