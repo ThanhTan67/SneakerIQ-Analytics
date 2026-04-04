@@ -295,7 +295,7 @@ git clone https://github.com/ThanhTan67/SneakerIQ-Analytics.git
 Create database:
 
 ```sql
-CREATE DATABASE glowmart;
+CREATE DATABASE sneakers;
 ```
 
 Update `backend/.env` (or `application.properties`):
@@ -438,7 +438,7 @@ Through this project, several important skills were developed:
 
 ### Platform Pages
 
-<p align="center">
+<!-- <p align="center">
   <img src="screenshots/glowmart-home.png" width="45%" alt="Home Page">
   <img src="screenshots/glowmart-catalog.png" width="45%" alt="Catalog Page">
 </p>
@@ -446,7 +446,7 @@ Through this project, several important skills were developed:
 <p align="center">
   <img src="screenshots/glowmart-product-detail.png" width="45%" alt="Product Detail">
   <img src="screenshots/glowmart-trends.png" width="45%" alt="Price Trends">
-</p>
+</p> -->
 
 ---
 
